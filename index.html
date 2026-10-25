@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101828">
+  <title>وصلني | رسائل العملاء</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <aside class="sidebar" id="sidebar">
+      <header class="brand">
+        <div class="brand-icon">و</div>
+        <div><h1>وصلني</h1><p>رسائل العملاء</p></div>
+        <button class="icon-btn mobile-close" id="closeSidebar" aria-label="إغلاق القائمة">×</button>
+      </header>
+
+      <section class="account">
+        <div class="avatar me-avatar" id="myAvatar">م</div>
+        <div class="account-info"><strong id="myName">حسابك</strong><span id="accountStatus">غير مسجل الدخول</span></div>
+        <button class="icon-btn" id="logoutBtn" title="تسجيل الخروج" hidden>↪</button>
+      </section>
+
+      <button class="primary-btn" id="newChatBtn"><span>＋</span> محادثة جديدة</button>
+      <button class="secondary-btn customer-manage-btn" id="manageCustomersBtn">♙ إدارة بيانات العملاء</button>
+      <button class="secondary-btn wallet-nav-btn" id="openWalletBtn">▣ المحفظة والسحب</button>
+      <div class="section-title"><span>الرسائل</span><span class="count" id="chatCount">0</span></div>
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="ابحث عن عميل..."></label>
+      <nav id="chatList" class="chat-list">
+        <div class="empty-list">سجّل الدخول لعرض محادثاتك.</div>
+      </nav>
+      <footer><span class="online-dot"></span> <span id="connectionStatus">جاهز للاتصال</span></footer>
+    </aside>
+
+    <section class="main-panel">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="openSidebar" aria-label="فتح قائمة الرسائل">☰</button>
+        <div class="topbar-title"><strong>مركز التواصل</strong><span>تواصل مع عملائك في مكان واحد</span></div>
+        <button class="icon-btn top-chat-shortcut" id="openChatsBtn" title="فتح المحادثات" aria-label="فتح المحادثات">💬</button><button class="profile-pill" id="profileBtn"><span class="avatar tiny" id="topAvatar">م</span><span id="topName">دخول / إنشاء حساب</span></button>
+      </header>
+
+      <section class="welcome" id="welcomeView">
+        <div class="welcome-art"><div class="bubble bubble-one">أهلًا 👋</div><div class="bubble bubble-two">هل يمكنني مساعدتك؟</div><div class="chat-symbol">✉</div></div>
+        <h2>كل محادثات عملائك في مكان واحد</h2>
+        <p>سجّل الدخول أو أنشئ حسابًا، ثم ابدأ محادثة مع عميل باستخدام بريده الإلكتروني.</p>
+        <div class="welcome-actions"><button class="primary-btn" id="welcomeLogin">تسجيل الدخول</button><button class="secondary-btn" id="welcomeSignup">إنشاء حساب جديد</button></div>
+        <div class="feature-row"><span>🔒 حسابات خاصة</span><span>⚡ رسائل مباشرة</span><span>📱 مناسب للموبايل</span></div>
+      </section>
+
+      <section class="customer-view" id="customerView" hidden>
+        <header class="customer-page-head"><div><span class="page-kicker">إدارة علاقات العملاء</span><h2>بيانات العملاء</h2><p>راجع بيانات جهات الاتصال المرتبطة بمحادثاتك، وأضف ملاحظات وحالة متابعة خاصة بحسابك.</p></div><button class="primary-btn" id="customerStartChat">＋ محادثة جديدة</button></header>
+        <div class="customer-toolbar"><label class="search customer-search"><span>⌕</span><input id="customerSearch" type="search" placeholder="ابحث بالاسم أو البريد الإلكتروني..."></label><span class="customer-count" id="customerTotal">0 عميل</span></div>
+        <div class="customer-layout"><div class="customer-table-wrap"><table class="customer-table"><thead><tr><th>العميل</th><th>الحالة</th><th>آخر ظهور</th><th></th></tr></thead><tbody id="customerRows"><tr><td colspan="4">سجّل الدخول لعرض العملاء.</td></tr></tbody></table></div>
+        <form class="customer-editor" id="customerEditor"><div class="editor-empty" id="customerEditorEmpty"><div>♙</div><strong>اختار عميل من القائمة</strong><p>هتقدر تضيف ملاحظات وتحدد حالة المتابعة.</p></div><div id="customerEditorFields" hidden><div class="editor-profile"><div class="avatar" id="customerAvatar">ع</div><div><h3 id="customerName">اسم العميل</h3><p id="customerEmail">email@example.com</p></div></div><input type="hidden" id="customerUid"><label>حالة المتابعة<select id="customerStatus"><option value="new">عميل جديد</option><option value="contacted">تم التواصل</option><option value="in_progress">قيد العمل</option><option value="completed">تم الإنجاز</option><option value="paused">متوقف مؤقتًا</option></select></label><label>ملاحظات خاصة<textarea id="customerNotes" rows="5" maxlength="1500" placeholder="اكتب تفاصيل مهمة عن العميل أو المطلوب..."></textarea></label><button class="primary-btn full" type="submit">حفظ بيانات العميل</button><button class="secondary-btn full" id="openCustomerChat" type="button">فتح المحادثة</button><p class="editor-note">الملاحظات وحالة المتابعة خاصة بحسابك.</p></div></form></div>
+      </section>
+
+      <section class="wallet-view" id="walletView" hidden>
+        <header class="wallet-page-head">
+          <div><span class="page-kicker">المحفظة المالية</span><h2>السحب والمعاملات</h2><p>تابع سجل السحب وحالة المعاملات من مكان واحد.</p></div>
+          <div class="wallet-demo-badge">واجهة تجريبية — لا تنفّذ تحويلات</div>
+        </header>
+        <div class="wallet-balance-card">
+          <div class="wallet-balance-top"><span>رصيد المحفظة المعروض</span><span class="wallet-icon">ج.م</span></div>
+          <div class="wallet-balance-value">0.00 <small>جنيه مصري</small></div>
+          <p>لا يوجد رصيد مالي حقيقي مرتبط بهذه النسخة من الموقع.</p>
+        </div>
+        <section class="wallet-actions-section">
+          <div class="wallet-actions-head"><h3>فودافون كاش</h3><p>قدّم طلب سحب أو سجّل عملية إيداع تجريبية. التحويل الفعلي يحتاج تكاملًا مع مزوّد دفع.</p></div>
+          <div class="wallet-action-tabs"><button type="button" class="wallet-tab active" id="withdrawTab">↗ سحب</button><button type="button" class="wallet-tab" id="depositTab">↙ إيداع</button></div>
+          <form id="walletRequestForm" class="wallet-request-form">
+            <label>المبلغ بالجنيه المصري<input id="walletAmount" type="number" min="1" max="100000" step="1" value="1500" required></label>
+            <label>رقم محفظة فودافون كاش<input id="walletPhone" type="tel" inputmode="numeric" pattern="01[0125][0-9]{8}" value="01157485168" required></label>
+            <p class="wallet-request-note" id="walletRequestNote">سيتم إنشاء طلب سحب تجريبي بقيمة 1500 جنيه إلى الرقم المدخل، ولن يتم إرسال أموال فعلية.</p>
+            <button class="primary-btn full" id="walletRequestSubmit" type="submit">إنشاء طلب سحب تجريبي</button>
+          </form>
+          <div class="wallet-request-result" id="walletRequestResult" hidden role="status"></div>
+        </section>
+        <section class="withdrawal-section">
+          <div class="withdrawal-section-head"><div><h3>سجل عمليات السحب والإيداع</h3><p>العمليات المعروضة أمثلة محلية داخل المتصفح وليست معاملات مالية حقيقية.</p></div><span class="transaction-count" id="transactionCount">عملية تجريبية واحدة</span></div>
+          <div id="walletTransactionList">
+          <article class="withdrawal-transaction">
+            <div class="transaction-symbol">↗</div>
+            <div class="transaction-details"><strong>سحب إلى المحفظة</strong><span>رقم العملية: WAS-DEMO-1500</span><span>25 أكتوبر 2026 · عملية تجريبية · لا يوجد تحويل فعلي</span></div>
+            <div class="transaction-amount"><strong>− 1,500.00 ج.م</strong><span class="transaction-status">سجل توضيحي · تجريبي</span></div>
+          </article>
+          </div>
+          <div class="wallet-disclaimer"><span>ⓘ</span><p><strong>تنبيه مهم:</strong> إنشاء الطلب لا يحوّل أموالًا ولا يثبت حدوث سحب. الموقع غير متصل بفودافون كاش أو بأي مزوّد دفع، لذلك لن يتم إرسال مبلغ إلى رقم الهاتف.</p></div>
+          <button class="secondary-btn copy-transaction-btn" id="copyTransactionBtn">نسخ رقم العملية التجريبية</button>
+        </section>
+      </section>
+
+      <section class="chat-view" id="chatView" hidden>
+        <header class="chat-header">
+          <button class="icon-btn back-btn" id="backToChats" aria-label="الرجوع للمحادثات">→</button>
+          <div class="avatar" id="activeAvatar">ع</div>
+          <div class="active-contact"><strong id="activeName">اسم العميل</strong><span id="activeEmail">البريد الإلكتروني</span></div>
+          <span class="secure-label">● محادثة خاصة</span>
+        </header>
+        <div class="messages" id="messages"><div class="messages-placeholder">اختار محادثة لعرض الرسائل.</div></div>
+        <form class="composer" id="messageForm">
+          <button class="attach-btn" type="button" id="attachBtn" aria-label="إرفاق صورة أو ملف" title="إرفاق صورة أو ملف">＋</button>
+          <input id="fileInput" type="file" hidden accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.zip">
+          <input id="messageInput" autocomplete="off" maxlength="3000" placeholder="اكتب رسالتك هنا..." aria-label="نص الرسالة">
+          <button class="send-btn" type="submit" aria-label="إرسال الرسالة">➤</button>
+        </form>
+        <div class="upload-note" id="uploadNote" hidden></div>
+        <p class="composer-note">استخدم رسائل محترمة ولا تشارك كلمات المرور أو البيانات الحساسة.</p>
+      </section>
+
+      <section class="auth-view" id="authView" hidden>
+        <button class="text-btn" id="authBack">← رجوع</button>
+        <div class="auth-card">
+          <div class="brand-icon large">و</div>
+          <h2 id="authTitle">تسجيل الدخول</h2>
+          <p id="authSubtitle">ادخل لحسابك لمتابعة محادثات العملاء.</p>
+          <form id="authForm">
+            <label id="nameField" hidden>الاسم<input id="nameInput" autocomplete="name" maxlength="80" value="Mohamed Reda" placeholder="اسمك أو اسم نشاطك"></label>
+            <label>البريد الإلكتروني<input id="emailInput" type="email" autocomplete="email" required placeholder="name@example.com"></label>
+            <label>كلمة المرور<input id="passwordInput" type="password" autocomplete="current-password" minlength="6" required placeholder="6 أحرف على الأقل"></label>
+            <p class="form-error" id="authError" role="alert"></p>
+            <button class="primary-btn full" id="authSubmit" type="submit">دخول</button>
+          </form>
+          <button class="text-btn switch-auth" id="switchAuth">ليس لديك حساب؟ أنشئ حسابًا</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="newChatDialog">
+    <form id="newChatForm" class="dialog-form">
+      <button type="button" class="dialog-close" id="closeDialog" aria-label="إغلاق">×</button>
+      <h2>ابدأ محادثة جديدة</h2>
+      <p>اكتب البريد الإلكتروني المسجّل به العميل في هذا الموقع.</p>
+      <label>بريد العميل<input id="clientEmail" type="email" required placeholder="client@example.com"></label>
+      <p class="form-error" id="newChatError" role="alert"></p>
+      <button class="primary-btn full" type="submit">البحث وفتح المحادثة</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

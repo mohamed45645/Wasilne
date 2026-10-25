@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /chats/{chatId}/{userId}/{fileName} {
+      function isChatMember() {
+        return request.auth != null &&
+          request.auth.uid in firestore.get(/databases/(default)/documents/chats/$(chatId)).data.members;
+      }
+      allow read: if isChatMember();
+      allow create: if isChatMember()
+        && request.auth.uid == userId
+        && request.resource.size < 10 * 1024 * 1024
+        && (request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'application/pdf'
+          || request.resource.contentType == 'text/plain'
+          || request.resource.contentType == 'text/csv'
+          || request.resource.contentType == 'application/zip'
+          || request.resource.contentType == 'application/x-zip-compressed'
+          || request.resource.contentType == 'application/msword'
+          || request.resource.contentType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+          || request.resource.contentType == 'application/vnd.ms-excel'
+          || request.resource.contentType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      allow update, delete: if false;
+    }
+  }
+}
